@@ -39,7 +39,7 @@ someSimpleFunction(someClosure: (print("Closure is executing")), msg: "Message")
 //Escaping closure
 func webServiceCall(completion: @escaping (() -> Void)) {
     print("inside web service call")
-    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
         completion()
     }
 }
@@ -59,3 +59,24 @@ escapingFunc {
     print("demo of escaping func")
 }
 */
+
+//Tricky question:
+var counter = 0
+//Web service call keeps making the call until the response is true
+func repeatedWebServiceCall(completion: @escaping (() -> Void)) {
+    print("inside web service call")
+    counter += 1
+    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+        print("inside async after")
+        if counter > 3 {
+            completion()
+        } else {
+            print("counter: \(counter); calling again")
+            repeatedWebServiceCall(completion: completion)
+        }
+        
+    }
+}
+repeatedWebServiceCall {
+    print("finally done!!")
+}
