@@ -25,4 +25,3 @@ let a = A()
 print(a.fullName)
 a.firstName = "NewName"
 print(a.fullName)
-

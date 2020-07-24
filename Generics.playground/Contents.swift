@@ -24,7 +24,6 @@ cast("flowers")
 
 //Mutating functions: In swift, classes are reference type whereas structures and enumerations are value types. The properties of value types cannot be modified within its instance methods by default. In order to modify the properties of a value type, you have to use the mutating keyword in the instance method. With this keyword, your method can then have the ability to mutate the values of the properties and write it back to the original structure when the method implementation ends.
 
-
 //Queue is a generic type with a type argument, Element in its generic argument clause
 struct Queue<Element: Equatable> {
     private var elements: [Element] = []
