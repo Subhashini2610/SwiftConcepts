@@ -179,3 +179,16 @@ print(messageSplit)
 //To create strings out of it:
 let strings = result.map { String($0) }
 print(strings)
+
+
+//Zip: Works with all types conforming to SequenceType protocol (like arrays, sets, dicts) to build a sequence from 2 underlying sequences.
+let students = ["A", "B", "C", "D", "E", "F"]
+let grades = [88.0, 98.8, 76.7, 80.1, 94.3, 97.5]
+let zip_students_grades = Dictionary(uniqueKeysWithValues: zip(students, grades))
+print(zip(students, grades))
+print(zip_students_grades)
+
+//To find the occurences of each element in array
+let array = [0, 1, 1, 2, 2, 2, 2]
+print(zip(array, repeatElement(1, count: array.count)))
+let dictionary = Dictionary(zip(array, repeatElement(1, count: array.count)), uniquingKeysWith: +)
