@@ -64,6 +64,7 @@ protocol Queue {
     var count: Int {get}
     mutating func push(_ element: ItemType)
     mutating func pop() -> ItemType?
+    init()
 }
 
 struct Container<Item>: Queue {
@@ -81,6 +82,9 @@ struct Container<Item>: Queue {
         return items.removeFirst()
     }
 }
+
+//protocols cant be instantiated
+//let q = Queue()
 
 //Optional Methods in protocols -> can be achieved by adding them in the protocol's extension
 protocol ErrorHandler {
