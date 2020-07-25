@@ -80,3 +80,16 @@ func repeatedWebServiceCall(completion: @escaping (() -> Void)) {
 repeatedWebServiceCall {
     print("finally done!!")
 }
+
+//Capture lists and ref cycles
+//Like objects, closures are also ref types and causes cycles
+//Class holds a ref of closure and if self is used inside closure, it causes strong ref cycles (cyclic dependency). To avoid this, weak self is used.
+var x = 5
+var y = 5
+let someClosure = { [x] in //here x is capture list (so captured by value), y is not in capture list, so its captured by ref
+    print("\(x) \(y)")
+}
+x = 6
+y = 6
+someClosure()//prints 5 6 (x is what it was at the time of capture)
+print("\(x) \(y)")//prints 6 6
