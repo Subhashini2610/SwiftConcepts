@@ -12,24 +12,8 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        addTestData()
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
-        do {
-            if let results = try persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject] {
-                for result in results {
-                    if let deviceType = result.value(forKey: "deviceType") as? String, let name = result.value(forKey: "name") as? String {
-                        print("Got \(deviceType) named \(name)")
-                    }
-                }
-            }
-        } catch  {
-            print("There was a fetch error")
-        }
         
         return true
     }
@@ -48,19 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
-    func addTestData() {
-        guard let entity = NSEntityDescription.entity(forEntityName: "Device", in: persistentContainer.viewContext) else {
-            fatalError("Could not find entity description")
-        }
-        
-        for i in 1...25 {
-            let device = NSManagedObject(entity: entity, insertInto: persistentContainer.viewContext)
-            device.setValue("Some device #\(i)", forKey: "name")
-            device.setValue(i % 3 == 0 ? "Watch" : "iPhone", forKey: "deviceType")
-        }
-        
-    }
-
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {

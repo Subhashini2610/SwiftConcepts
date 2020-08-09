@@ -7,17 +7,47 @@
 //
 
 import UIKit
+import CoreData
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let appDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        do {
+            if let results = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject] {
+                if results.count == 0 {
+                    addTestData()
+                }
+                for result in results {
+                    if let deviceType = result.value(forKey: "deviceType") as? String, let name = result.value(forKey: "name") as? String {
+                        print("Got \(deviceType) named \(name)")
+                    }
+                }
+            }
+        } catch  {
+            print("There was a fetch error")
+        }
+        
+        if let tab = window?.rootViewController as? UITabBarController {
+            for child in tab.viewControllers ?? [] {
+                if let child = child as? UINavigationController, let top = child.topViewController {
+                    if let top = top as? DevicesTableViewController {
+                        top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
+                    } else if let top = top as? PeopleTableViewController {
+                        top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
+                    }
+                }
+            }
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -50,7 +80,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Save changes in the application's managed object context when the application transitions to the background.
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
-
+    
+    func addTestData() {
+        let context = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "Device", in: context), let personEntity = NSEntityDescription.entity(forEntityName: "Person", in: context) else {
+            fatalError("Could not find entity description")
+        }
+        
+        for i in 1...10 {
+            let device = NSManagedObject(entity: entity, insertInto: appDelegate.persistentContainer.viewContext)
+            device.setValue("Some device #\(i)", forKey: "name")
+            device.setValue(i % 3 == 0 ? "Watch" : "iPhone", forKey: "deviceType")
+        }
+        
+        let bob = NSManagedObject(entity: personEntity, insertInto: context)
+        bob.setValue("Bob", forKey: "name")
+        
+        let jane = NSManagedObject(entity: personEntity, insertInto: context)
+        jane.setValue("Jane", forKey: "name")
+        
+        appDelegate.saveContext()
+    }
 
 }
 
