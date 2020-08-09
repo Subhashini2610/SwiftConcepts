@@ -88,9 +88,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         for i in 1...10 {
-            let device = NSManagedObject(entity: entity, insertInto: appDelegate.persistentContainer.viewContext)
-            device.setValue("Some device #\(i)", forKey: "name")
-            device.setValue(i % 3 == 0 ? "Watch" : "iPhone", forKey: "deviceType")
+            let device = Device(entity: entity, insertInto: appDelegate.persistentContainer.viewContext)
+            device.name = "Some device #\(i)"
+            device.deviceType = i % 3 == 0 ? "Watch" : "iPhone"
         }
         
         let bob = NSManagedObject(entity: personEntity, insertInto: context)
