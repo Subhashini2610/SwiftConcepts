@@ -25,6 +25,22 @@ class DeviceDetailTableViewController: UITableViewController {
         
         txtFieldDeviceName.text = device?.name
         txtFieldDeviceType.text = device?.deviceType
+        
+        if let owner = device?.owner {
+            lblDeviceOwner.text = "Device owner: \(String(describing: owner.name))"
+        } else {
+            lblDeviceOwner.text = "Set device owner"
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if device == nil {
+            if let name = txtFieldDeviceName.text, let deviceType = txtFieldDeviceType.text, let entity = NSEntityDescription.entity(forEntityName: "Device", in: managedObjectContext), !name.isEmpty && !deviceType.isEmpty {
+                device = Device(entity: entity, insertInto: managedObjectContext)
+                device?.deviceType = deviceType
+                device?.name = name
+            }
+        }
     }
     
 }

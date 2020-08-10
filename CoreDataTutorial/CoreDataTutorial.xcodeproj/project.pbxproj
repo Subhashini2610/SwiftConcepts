@@ -16,10 +16,10 @@
 		3049D0C524E039F700EADDE7 /* PeopleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049D0C424E039F700EADDE7 /* PeopleTableViewController.swift */; };
 		3049D0C724E03A0F00EADDE7 /* DevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049D0C624E03A0F00EADDE7 /* DevicesTableViewController.swift */; };
 		3049D0C924E03ABE00EADDE7 /* DeviceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3049D0C824E03ABE00EADDE7 /* DeviceDetailTableViewController.swift */; };
-		30E4ADBC24E0647400044ADF /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADB824E0647400044ADF /* Device+CoreDataClass.swift */; };
-		30E4ADBD24E0647400044ADF /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADB924E0647400044ADF /* Device+CoreDataProperties.swift */; };
-		30E4ADBE24E0647400044ADF /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADBA24E0647400044ADF /* Person+CoreDataClass.swift */; };
-		30E4ADBF24E0647400044ADF /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADBB24E0647400044ADF /* Person+CoreDataProperties.swift */; };
+		30E4ADC824E1216600044ADF /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADC424E1216600044ADF /* Device+CoreDataClass.swift */; };
+		30E4ADC924E1216600044ADF /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADC524E1216600044ADF /* Device+CoreDataProperties.swift */; };
+		30E4ADCA24E1216600044ADF /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADC624E1216600044ADF /* Person+CoreDataClass.swift */; };
+		30E4ADCB24E1216600044ADF /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADC724E1216600044ADF /* Person+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,10 +34,10 @@
 		3049D0C424E039F700EADDE7 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
 		3049D0C624E03A0F00EADDE7 /* DevicesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesTableViewController.swift; sourceTree = "<group>"; };
 		3049D0C824E03ABE00EADDE7 /* DeviceDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailTableViewController.swift; sourceTree = "<group>"; };
-		30E4ADB824E0647400044ADF /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
-		30E4ADB924E0647400044ADF /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		30E4ADBA24E0647400044ADF /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
-		30E4ADBB24E0647400044ADF /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		30E4ADC424E1216600044ADF /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
+		30E4ADC524E1216600044ADF /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		30E4ADC624E1216600044ADF /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
+		30E4ADC724E1216600044ADF /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,10 +70,10 @@
 		3049D0AC24E02A9D00EADDE7 /* CoreDataTutorial */ = {
 			isa = PBXGroup;
 			children = (
-				30E4ADB824E0647400044ADF /* Device+CoreDataClass.swift */,
-				30E4ADB924E0647400044ADF /* Device+CoreDataProperties.swift */,
-				30E4ADBA24E0647400044ADF /* Person+CoreDataClass.swift */,
-				30E4ADBB24E0647400044ADF /* Person+CoreDataProperties.swift */,
+				30E4ADC424E1216600044ADF /* Device+CoreDataClass.swift */,
+				30E4ADC524E1216600044ADF /* Device+CoreDataProperties.swift */,
+				30E4ADC624E1216600044ADF /* Person+CoreDataClass.swift */,
+				30E4ADC724E1216600044ADF /* Person+CoreDataProperties.swift */,
 				3049D0AD24E02A9D00EADDE7 /* AppDelegate.swift */,
 				3049D0AF24E02A9D00EADDE7 /* SceneDelegate.swift */,
 				3049D0B324E02A9D00EADDE7 /* Main.storyboard */,
@@ -162,11 +162,11 @@
 				3049D0B824E02A9D00EADDE7 /* CoreDataTutorial.xcdatamodeld in Sources */,
 				3049D0C924E03ABE00EADDE7 /* DeviceDetailTableViewController.swift in Sources */,
 				3049D0C724E03A0F00EADDE7 /* DevicesTableViewController.swift in Sources */,
-				30E4ADBC24E0647400044ADF /* Device+CoreDataClass.swift in Sources */,
+				30E4ADC824E1216600044ADF /* Device+CoreDataClass.swift in Sources */,
 				3049D0AE24E02A9D00EADDE7 /* AppDelegate.swift in Sources */,
-				30E4ADBE24E0647400044ADF /* Person+CoreDataClass.swift in Sources */,
-				30E4ADBF24E0647400044ADF /* Person+CoreDataProperties.swift in Sources */,
-				30E4ADBD24E0647400044ADF /* Device+CoreDataProperties.swift in Sources */,
+				30E4ADCA24E1216600044ADF /* Person+CoreDataClass.swift in Sources */,
+				30E4ADCB24E1216600044ADF /* Person+CoreDataProperties.swift in Sources */,
+				30E4ADC924E1216600044ADF /* Device+CoreDataProperties.swift in Sources */,
 				3049D0B024E02A9D00EADDE7 /* SceneDelegate.swift in Sources */,
 				3049D0C524E039F700EADDE7 /* PeopleTableViewController.swift in Sources */,
 			);
