@@ -20,7 +20,7 @@ public class DevicesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if let selectedPerson = selectedPerson {
-            title = "\(selectedPerson.name)'s Devices"
+            title = "\(selectedPerson.name!)'s Devices"
         } else {
           title = "Devices"
             navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDevice)), UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector((selectFilter)))]

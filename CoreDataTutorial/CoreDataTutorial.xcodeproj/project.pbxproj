@@ -25,10 +25,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		302E3B1A24E1B5FE002B6EA6 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "CoreDataTutorial/Device+CoreDataClass.swift"; sourceTree = "<group>"; };
-		302E3B1B24E1B5FE002B6EA6 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "CoreDataTutorial/Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		302E3B1C24E1B5FE002B6EA6 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataClass.swift"; path = "CoreDataTutorial/Person+CoreDataClass.swift"; sourceTree = "<group>"; };
-		302E3B1D24E1B5FE002B6EA6 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataProperties.swift"; path = "CoreDataTutorial/Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		302E3B1A24E1B5FE002B6EA6 /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
+		302E3B1B24E1B5FE002B6EA6 /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		302E3B1C24E1B5FE002B6EA6 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
+		302E3B1D24E1B5FE002B6EA6 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3045CA5E24E1945D00B1CA3D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3049D0AA24E02A9D00EADDE7 /* CoreDataTutorial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataTutorial.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3049D0AD24E02A9D00EADDE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,10 +58,6 @@
 		3049D0A124E02A9D00EADDE7 = {
 			isa = PBXGroup;
 			children = (
-				302E3B1A24E1B5FE002B6EA6 /* Device+CoreDataClass.swift */,
-				302E3B1B24E1B5FE002B6EA6 /* Device+CoreDataProperties.swift */,
-				302E3B1C24E1B5FE002B6EA6 /* Person+CoreDataClass.swift */,
-				302E3B1D24E1B5FE002B6EA6 /* Person+CoreDataProperties.swift */,
 				3049D0AC24E02A9D00EADDE7 /* CoreDataTutorial */,
 				3049D0AB24E02A9D00EADDE7 /* Products */,
 			);
@@ -78,6 +74,10 @@
 		3049D0AC24E02A9D00EADDE7 /* CoreDataTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				302E3B1A24E1B5FE002B6EA6 /* Device+CoreDataClass.swift */,
+				302E3B1B24E1B5FE002B6EA6 /* Device+CoreDataProperties.swift */,
+				302E3B1C24E1B5FE002B6EA6 /* Person+CoreDataClass.swift */,
+				302E3B1D24E1B5FE002B6EA6 /* Person+CoreDataProperties.swift */,
 				3049D0AD24E02A9D00EADDE7 /* AppDelegate.swift */,
 				3049D0AF24E02A9D00EADDE7 /* SceneDelegate.swift */,
 				3049D0B324E02A9D00EADDE7 /* Main.storyboard */,

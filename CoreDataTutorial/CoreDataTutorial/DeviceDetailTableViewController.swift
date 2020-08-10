@@ -48,7 +48,7 @@ class DeviceDetailTableViewController: UITableViewController {
             imageView.image = device.image
 
             if let owner = device.owner {
-                lblDeviceOwner.text = "Device owner: \(owner.name)"
+                lblDeviceOwner.text = "Device owner: \(owner.name!)"
             } else {
                 lblDeviceOwner.text = "Set device owner"
             }
@@ -62,7 +62,7 @@ class DeviceDetailTableViewController: UITableViewController {
             coreDataStack.managedObjectContext.refresh(device, mergeChanges: true)
             if let birthdayBuddies = device.value(forKey: "purchasedOnSameDate") as? [Device] {
                 for birthdayBuddy in birthdayBuddies {
-                    print("Birthday buddy - \(birthdayBuddy.name)")
+                    print("Birthday buddy - \(birthdayBuddy.name!)")
                 }
             }
         }
