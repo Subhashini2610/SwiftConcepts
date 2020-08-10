@@ -43,6 +43,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
                     } else if let top = top as? PeopleTableViewController {
                         top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
+                    } else if let top = top as? DebugViewController {
+                        top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
                     }
                 }
             }

@@ -20,6 +20,7 @@
 		30E4ADD924E1556700044ADF /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADD524E1556700044ADF /* Person+CoreDataProperties.swift */; };
 		30E4ADDA24E1556700044ADF /* Device+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADD624E1556700044ADF /* Device+CoreDataClass.swift */; };
 		30E4ADDB24E1556700044ADF /* Device+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADD724E1556700044ADF /* Device+CoreDataProperties.swift */; };
+		30E4ADDD24E1574700044ADF /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E4ADDC24E1574700044ADF /* DebugViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,10 +35,11 @@
 		3049D0C424E039F700EADDE7 /* PeopleTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewController.swift; sourceTree = "<group>"; };
 		3049D0C624E03A0F00EADDE7 /* DevicesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesTableViewController.swift; sourceTree = "<group>"; };
 		3049D0C824E03ABE00EADDE7 /* DeviceDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailTableViewController.swift; sourceTree = "<group>"; };
-		30E4ADD424E1556700044ADF /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataClass.swift"; path = "CoreDataTutorial/Person+CoreDataClass.swift"; sourceTree = "<group>"; };
-		30E4ADD524E1556700044ADF /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Person+CoreDataProperties.swift"; path = "CoreDataTutorial/Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		30E4ADD624E1556700044ADF /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataClass.swift"; path = "CoreDataTutorial/Device+CoreDataClass.swift"; sourceTree = "<group>"; };
-		30E4ADD724E1556700044ADF /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Device+CoreDataProperties.swift"; path = "CoreDataTutorial/Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		30E4ADD424E1556700044ADF /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
+		30E4ADD524E1556700044ADF /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		30E4ADD624E1556700044ADF /* Device+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataClass.swift"; sourceTree = "<group>"; };
+		30E4ADD724E1556700044ADF /* Device+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Device+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		30E4ADDC24E1574700044ADF /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,10 +56,6 @@
 		3049D0A124E02A9D00EADDE7 = {
 			isa = PBXGroup;
 			children = (
-				30E4ADD424E1556700044ADF /* Person+CoreDataClass.swift */,
-				30E4ADD524E1556700044ADF /* Person+CoreDataProperties.swift */,
-				30E4ADD624E1556700044ADF /* Device+CoreDataClass.swift */,
-				30E4ADD724E1556700044ADF /* Device+CoreDataProperties.swift */,
 				3049D0AC24E02A9D00EADDE7 /* CoreDataTutorial */,
 				3049D0AB24E02A9D00EADDE7 /* Products */,
 			);
@@ -74,6 +72,10 @@
 		3049D0AC24E02A9D00EADDE7 /* CoreDataTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				30E4ADD424E1556700044ADF /* Person+CoreDataClass.swift */,
+				30E4ADD524E1556700044ADF /* Person+CoreDataProperties.swift */,
+				30E4ADD624E1556700044ADF /* Device+CoreDataClass.swift */,
+				30E4ADD724E1556700044ADF /* Device+CoreDataProperties.swift */,
 				3049D0AD24E02A9D00EADDE7 /* AppDelegate.swift */,
 				3049D0AF24E02A9D00EADDE7 /* SceneDelegate.swift */,
 				3049D0B324E02A9D00EADDE7 /* Main.storyboard */,
@@ -84,6 +86,7 @@
 				3049D0C424E039F700EADDE7 /* PeopleTableViewController.swift */,
 				3049D0C624E03A0F00EADDE7 /* DevicesTableViewController.swift */,
 				3049D0C824E03ABE00EADDE7 /* DeviceDetailTableViewController.swift */,
+				30E4ADDC24E1574700044ADF /* DebugViewController.swift */,
 			);
 			path = CoreDataTutorial;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			files = (
 				3049D0B824E02A9D00EADDE7 /* CoreDataTutorial.xcdatamodeld in Sources */,
 				30E4ADD824E1556700044ADF /* Person+CoreDataClass.swift in Sources */,
+				30E4ADDD24E1574700044ADF /* DebugViewController.swift in Sources */,
 				3049D0C924E03ABE00EADDE7 /* DeviceDetailTableViewController.swift in Sources */,
 				3049D0C724E03A0F00EADDE7 /* DevicesTableViewController.swift in Sources */,
 				30E4ADD924E1556700044ADF /* Person+CoreDataProperties.swift in Sources */,
