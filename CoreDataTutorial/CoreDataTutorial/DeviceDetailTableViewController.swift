@@ -10,8 +10,8 @@ import UIKit
 import CoreData
 
 class DeviceDetailTableViewController: UITableViewController {
-    var managedObjectContext: NSManagedObjectContext!
-    
+    var coreDataStack: CoreDataStack!
+
     var device: Device?
     var deviceType = ""
     
@@ -41,15 +41,15 @@ class DeviceDetailTableViewController: UITableViewController {
             device.name = name
             device.deviceType = type
         } else if device == nil {
-            if let name = txtFieldDeviceName.text, let deviceType = txtFieldDeviceType.text, let entity = NSEntityDescription.entity(forEntityName: "Device", in: managedObjectContext), !name.isEmpty && !deviceType.isEmpty {
-                device = Device(entity: entity, insertInto: managedObjectContext)
+            if let name = txtFieldDeviceName.text, let deviceType = txtFieldDeviceType.text, let entity = NSEntityDescription.entity(forEntityName: "Device", in: coreDataStack.managedObjectContext), !name.isEmpty && !deviceType.isEmpty {
+                device = Device(entity: entity, insertInto: coreDataStack.managedObjectContext)
                 device?.deviceType = deviceType
                 device?.name = name
             }
         }
         
         do {
-            try managedObjectContext.save()
+            try coreDataStack.managedObjectContext.save()
         } catch  {
             print("Error saving managed object context")
         }
@@ -64,7 +64,7 @@ extension DeviceDetailTableViewController {
             if let personPicker = storyboard?.instantiateViewController(withIdentifier: "People") as? PeopleTableViewController {
 
               // more personPicker setup code here
-                personPicker.managedObjectContext = managedObjectContext
+                personPicker.coreDataStack = coreDataStack
               personPicker.pickerDelegate = self
               personPicker.selectedPerson = device?.owner
 
@@ -78,10 +78,7 @@ extension DeviceDetailTableViewController: PersonPickerDelegate {
   func didSelectPerson(person: Person) {
     device?.owner = person
 
-    do {
-        try managedObjectContext.save()
-    } catch  {
-        print("Error saving managedObjectContext")
-    }
+    coreDataStack.saveMainContext()
+    
   }
 }

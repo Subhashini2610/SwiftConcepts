@@ -15,7 +15,7 @@ protocol PersonPickerDelegate: class {
 
 public class PeopleTableViewController: UITableViewController {
     
-    var managedObjectContext: NSManagedObjectContext!
+    var coreDataStack: CoreDataStack!
     var people = [Person]()
     
     weak var pickerDelegate: PersonPickerDelegate?
@@ -38,10 +38,8 @@ public class PeopleTableViewController: UITableViewController {
     
     func reloadData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
-//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
-//        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            if let results = try managedObjectContext.fetch(fetchRequest) as? [Person] {
+            if let results = try coreDataStack.managedObjectContext.fetch(fetchRequest) as? [Person] {
                 people = results
             }
         } catch  {
@@ -68,20 +66,20 @@ public class PeopleTableViewController: UITableViewController {
     }
     
     func addNewPerson(name: String) {
-        if let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedObjectContext) {
-            let newPerson = Person(entity: entity, insertInto: managedObjectContext)
+        if let entity = NSEntityDescription.entity(forEntityName: "Person", in: coreDataStack.managedObjectContext) {
+            let newPerson = Person(entity: entity, insertInto: coreDataStack.managedObjectContext)
             newPerson.name = name
             
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.saveContext()
+                appDelegate.coreDataStack.saveMainContext()
                 self.reloadData()
                 tableView.reloadData()
             }
         }
     }
     
-    @objc func setManagedObjectContext(context: NSManagedObjectContext) {
-        managedObjectContext = context
+    @objc func setCoreDataStack(stack: CoreDataStack) {
+        coreDataStack = stack
     }
 }
 
@@ -115,7 +113,7 @@ extension PeopleTableViewController {
         } else {
             if let devicesTableViewController = storyboard?.instantiateViewController(identifier: "Devices") as? DevicesTableViewController {
                 let person = people[indexPath.row]
-                devicesTableViewController.managedObjectContext = managedObjectContext
+                devicesTableViewController.coreDataStack = coreDataStack
                 devicesTableViewController.selectedPerson = person
                 navigationController?.pushViewController(devicesTableViewController, animated: true)
             }
@@ -130,9 +128,9 @@ extension PeopleTableViewController {
     public override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let person = people[indexPath.row]
-            managedObjectContext.delete(person)
+            coreDataStack.managedObjectContext.delete(person)
             do {
-                try managedObjectContext.save()
+                try coreDataStack.saveMainContext()
             } catch  {
                 print("Error in saving context")
             }

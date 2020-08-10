@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
         do {
-            if let results = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject] {
+            if let results = try appDelegate.coreDataStack.managedObjectContext.fetch(fetchRequest) as? [NSManagedObject] {
                 if results.count == 0 {
                     addTestData()
                 }
@@ -40,11 +40,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             for child in tab.viewControllers ?? [] {
                 if let child = child as? UINavigationController, let top = child.topViewController {
                     if let top = top as? DevicesTableViewController {
-                        top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
+                        top.setCoreDataStack(stack: appDelegate.coreDataStack)
                     } else if let top = top as? PeopleTableViewController {
-                        top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
+                        top.setCoreDataStack(stack: appDelegate.coreDataStack)
                     } else if let top = top as? DebugViewController {
-                        top.setManagedObjectContext(context: appDelegate.persistentContainer.viewContext)
+                        top.setCoreDataStack(stack: appDelegate.coreDataStack)
                     }
                 }
             }
@@ -80,17 +80,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
 
         // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
+        (UIApplication.shared.delegate as? AppDelegate)?.coreDataStack.saveMainContext()
     }
     
     func addTestData() {
-        let context = appDelegate.persistentContainer.viewContext
+        let context = appDelegate.coreDataStack.managedObjectContext
         guard let entity = NSEntityDescription.entity(forEntityName: "Device", in: context), let personEntity = NSEntityDescription.entity(forEntityName: "Person", in: context) else {
             fatalError("Could not find entity description")
         }
         
         for i in 1...10 {
-            let device = Device(entity: entity, insertInto: appDelegate.persistentContainer.viewContext)
+            let device = Device(entity: entity, insertInto: appDelegate.coreDataStack.managedObjectContext)
             device.name = "Some device #\(i)"
             device.deviceType = i % 3 == 0 ? "Watch" : "iPhone"
         }
@@ -101,7 +101,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let jane = Person(entity: personEntity, insertInto: context)
         jane.name = "Jane"
         
-        appDelegate.saveContext()
+        appDelegate.coreDataStack.saveMainContext()
     }
 
 }

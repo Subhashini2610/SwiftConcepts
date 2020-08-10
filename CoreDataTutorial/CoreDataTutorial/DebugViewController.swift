@@ -11,7 +11,7 @@ import CoreData
 
 class DebugViewController: UIViewController {
 
-    var managedObjectContext: NSManagedObjectContext!
+    var coreDataStack: CoreDataStack!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +19,8 @@ class DebugViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @objc func setManagedObjectContext(context: NSManagedObjectContext) {
-        managedObjectContext = context
+    @objc func setCoreDataStack(stack: CoreDataStack) {
+        coreDataStack = stack
     }
     
     @IBAction func deleteAllDataTapped(_ sender: Any) {
@@ -34,8 +34,8 @@ class DebugViewController: UIViewController {
         personDeleteRequest.resultType = .resultTypeCount
 
         do {
-            let personResult = try managedObjectContext.execute(personDeleteRequest) as! NSBatchDeleteResult
-            let deviceResult = try managedObjectContext.execute(deviceDeleteRequest) as! NSBatchDeleteResult
+            let personResult = try coreDataStack.managedObjectContext.execute(personDeleteRequest) as! NSBatchDeleteResult
+            let deviceResult = try coreDataStack.managedObjectContext.execute(deviceDeleteRequest) as! NSBatchDeleteResult
 
             let alert = UIAlertController(title: "Batch Delete Succeeded", message: "\(deviceResult.result!) device records and \(personResult.result!) person records deleted.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -53,13 +53,13 @@ class DebugViewController: UIViewController {
         fetchRequest.predicate = NSPredicate(format: "owner != nil")
 
         do {
-          if let results = try managedObjectContext.fetch(fetchRequest) as? [Device] {
+          if let results = try coreDataStack.managedObjectContext.fetch(fetchRequest) as? [Device] {
             for device in results {
               device.owner = nil
             }
 
             do {
-                try managedObjectContext.save()
+                try coreDataStack.managedObjectContext.save()
             } catch  {
                 print("Error saving context")
             }

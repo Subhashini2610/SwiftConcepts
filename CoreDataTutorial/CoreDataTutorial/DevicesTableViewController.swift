@@ -11,7 +11,7 @@ import CoreData
 
 public class DevicesTableViewController: UITableViewController {
     
-    var managedObjectContext: NSManagedObjectContext!
+    var coreDataStack: CoreDataStack!
     var devices = [Device]()
     
     var selectedPerson: Person?
@@ -48,7 +48,7 @@ public class DevicesTableViewController: UITableViewController {
             }
         }
         do {
-            if let results = try managedObjectContext.fetch(fetchRequest) as? [Device] {
+            if let results = try coreDataStack.managedObjectContext.fetch(fetchRequest) as? [Device] {
                 devices = results
             }
         } catch  {
@@ -84,8 +84,8 @@ public class DevicesTableViewController: UITableViewController {
         present(sheet, animated: true, completion: nil)
     }
     
-    @objc func setManagedObjectContext(context: NSManagedObjectContext) {
-        managedObjectContext = context
+    @objc func setCoreDataStack(stack: CoreDataStack) {
+        coreDataStack = stack
     }
     
 }
@@ -108,7 +108,7 @@ extension DevicesTableViewController {
     
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let dest = segue.destination as? DeviceDetailTableViewController {
-            dest.managedObjectContext = managedObjectContext
+            dest.coreDataStack = coreDataStack
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 let device = devices[selectedIndexPath.row]
