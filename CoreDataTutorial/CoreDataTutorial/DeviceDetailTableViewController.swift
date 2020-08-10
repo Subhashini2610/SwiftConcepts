@@ -12,9 +12,10 @@ import CoreData
 class DeviceDetailTableViewController: UITableViewController {
     var managedObjectContext: NSManagedObjectContext!
     
-    var deviceName = ""
+    var device: Device?
     var deviceType = ""
     
+    @IBOutlet weak var lblDeviceOwner: UILabel!
     @IBOutlet weak var txtFieldDeviceName: UITextField!
     
     @IBOutlet weak var txtFieldDeviceType: UITextField!
@@ -22,8 +23,8 @@ class DeviceDetailTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        txtFieldDeviceName.text = deviceName
-        txtFieldDeviceType.text = deviceType
+        txtFieldDeviceName.text = device?.name
+        txtFieldDeviceType.text = device?.deviceType
     }
     
 }

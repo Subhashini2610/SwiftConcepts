@@ -134,14 +134,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Device owner:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkD-fp-4az">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device owner:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DkD-fp-4az">
                                                     <rect key="frame" x="20" y="29" width="109" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="DkD-fp-4az" firstAttribute="leading" secondItem="fhw-kb-dok" secondAttribute="leading" constant="20" id="jd8-6R-9x9"/>
+                                                <constraint firstItem="DkD-fp-4az" firstAttribute="centerY" secondItem="fhw-kb-dok" secondAttribute="centerY" id="nVt-EA-co3"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -154,6 +157,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="vSH-vh-6As"/>
                     <connections>
+                        <outlet property="lblDeviceOwner" destination="DkD-fp-4az" id="D5B-Gv-Vdh"/>
                         <outlet property="txtFieldDeviceName" destination="5ba-Jr-i6E" id="Lbd-vY-f9v"/>
                         <outlet property="txtFieldDeviceType" destination="wXX-rS-lYP" id="njC-rW-ppR"/>
                     </connections>
@@ -235,6 +239,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="BUb-og-37U"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XDR-oO-I4c">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

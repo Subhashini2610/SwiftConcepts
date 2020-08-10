@@ -74,8 +74,7 @@ extension DevicesTableViewController {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 let device = devices[selectedIndexPath.row]
-                dest.deviceName = device.value(forKey: "name") as! String
-                dest.deviceType = device.value(forKey: "deviceType") as! String
+                dest.device = device
 
             }
             
