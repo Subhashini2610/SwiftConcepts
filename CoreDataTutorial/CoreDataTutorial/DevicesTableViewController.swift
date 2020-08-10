@@ -12,8 +12,7 @@ import CoreData
 public class DevicesTableViewController: UITableViewController {
     
     var coreDataStack: CoreDataStack!
-    var devices = [Device]()
-    
+    var fetchedresultsController: NSFetchedResultsController<NSFetchRequestResult>!
     var selectedPerson: Person?
     
     public override func viewDidLoad() {
@@ -26,6 +25,11 @@ public class DevicesTableViewController: UITableViewController {
             navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDevice)), UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector((selectFilter)))]
 
         }
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "deviceType.name", ascending: true), NSSortDescriptor(key: "name", ascending: true)]
+        
+        fetchedresultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -40,17 +44,12 @@ public class DevicesTableViewController: UITableViewController {
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
         if let selectedPerson = selectedPerson {
-          fetchRequest.predicate =
-            NSPredicate(format: "owner == %@", selectedPerson)
+            fetchedresultsController.fetchRequest.predicate = NSPredicate(format: "owner == %@", selectedPerson)
         } else {
-            if let predicate = predicate {
-                fetchRequest.predicate = predicate
-            }
+            fetchedresultsController.fetchRequest.predicate = predicate
         }
         do {
-            if let results = try coreDataStack.managedObjectContext.fetch(fetchRequest) as? [Device] {
-                devices = results
-            }
+            try fetchedresultsController.performFetch()
         } catch  {
             fatalError("There was an error fetching list of devices")
         }
@@ -93,13 +92,13 @@ public class DevicesTableViewController: UITableViewController {
 extension DevicesTableViewController {
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return devices.count
+        return fetchedresultsController.sections?[section].numberOfObjects ?? 0
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath)
         
-        let device = devices[indexPath.row]
+        let device = fetchedresultsController.object(at: indexPath) as! Device
         cell.textLabel?.text = device.name
         cell.detailTextLabel?.text = device.deviceType?.name
         
@@ -111,7 +110,7 @@ extension DevicesTableViewController {
             dest.coreDataStack = coreDataStack
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                let device = devices[selectedIndexPath.row]
+                let device = fetchedresultsController.object(at: selectedIndexPath) as! Device
                 dest.device = device
 
             }
