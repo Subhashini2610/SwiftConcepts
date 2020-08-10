@@ -9,7 +9,7 @@
 
 import Foundation
 import CoreData
-
+import UIKit
 
 extension Device {
 
@@ -17,10 +17,11 @@ extension Device {
         return NSFetchRequest<Device>(entityName: "Device")
     }
 
-    @NSManaged public var deviceType: String?
-    @NSManaged public var name: String
     @NSManaged public var deviceID: String?
+    @NSManaged public var deviceType: String?
+    @NSManaged public var name: String?
     @NSManaged public var purchaseDate: Date?
+    @NSManaged public var image: UIImage?
     @NSManaged public var owner: Person?
 
 }

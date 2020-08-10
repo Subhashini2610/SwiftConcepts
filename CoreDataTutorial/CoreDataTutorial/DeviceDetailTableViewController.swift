@@ -23,6 +23,7 @@ class DeviceDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var txtFieldPurchaseDate: UITextField!
     
+    @IBOutlet weak var imageView: UIImageView!
     private let datePicker = UIDatePicker()
     private var selectedDate: Date?
     private lazy var dateFormatter: DateFormatter = {
@@ -44,7 +45,8 @@ class DeviceDetailTableViewController: UITableViewController {
             txtFieldDeviceName.text = device.name
             txtFieldDeviceType.text = device.deviceType
             txtFieldDeviceID.text = device.deviceID
-            
+            imageView.image = device.image
+
             if let owner = device.owner {
                 lblDeviceOwner.text = "Device owner: \(owner.name)"
             } else {
@@ -73,6 +75,7 @@ class DeviceDetailTableViewController: UITableViewController {
             device.deviceType = deviceType
             device.deviceID = txtFieldDeviceID.text
             device.purchaseDate = selectedDate
+            device.image = imageView.image
         } else if device == nil {
             if let name = txtFieldDeviceName.text, let deviceType = txtFieldDeviceType.text, let deviceID = txtFieldDeviceID.text, let entity = NSEntityDescription.entity(forEntityName: "Device", in: coreDataStack.managedObjectContext), !name.isEmpty && !deviceType.isEmpty {
                 device = Device(entity: entity, insertInto: coreDataStack.managedObjectContext)
@@ -80,6 +83,7 @@ class DeviceDetailTableViewController: UITableViewController {
                 device?.name = name
                 device?.deviceID = deviceID
                 device?.purchaseDate = selectedDate
+                device?.image = imageView.image
             }
         }
         
@@ -109,6 +113,31 @@ extension DeviceDetailTableViewController {
 
               navigationController?.pushViewController(personPicker, animated: true)
             }
+        } else if indexPath.row == 5 {
+            let sheet = UIAlertController(title: "Device Image", message: nil, preferredStyle: .actionSheet)
+
+              sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) -> Void in
+            }))
+
+            if imageView.image != nil {
+              sheet.addAction(UIAlertAction(title: "Remove current image", style: .destructive, handler: { (action) -> Void in
+                  DispatchQueue.main.async {
+                      self.imageView.image = nil
+                  }
+                
+              }))
+            }
+
+              sheet.addAction(UIAlertAction(title: "Select image from library", style: .default, handler: { (action) -> Void in
+              let picker = UIImagePickerController()
+                  picker.sourceType = .photoLibrary
+              picker.delegate = self
+
+                  self.present(picker, animated: true, completion: nil)
+            }))
+
+              present(sheet, animated: true, completion: nil)
+
         }
     }
 }
@@ -119,5 +148,22 @@ extension DeviceDetailTableViewController: PersonPickerDelegate {
 
     try? coreDataStack.saveMainContext()
     
+  }
+}
+
+extension DeviceDetailTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            return
+        }
+        DispatchQueue.main.async {
+                self.imageView.image = image
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    dismiss(animated: true, completion: nil)
   }
 }
