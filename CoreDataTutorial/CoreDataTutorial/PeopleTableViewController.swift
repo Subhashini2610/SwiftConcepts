@@ -122,4 +122,17 @@ extension PeopleTableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    public override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return pickerDelegate == nil
+    }
+    
+    public override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let person = people[indexPath.row]
+            managedObjectContext.delete(person)
+            
+            reloadData()
+        }
+    }
 }

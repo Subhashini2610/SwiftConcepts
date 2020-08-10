@@ -19,8 +19,13 @@ public class DevicesTableViewController: UITableViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Devices"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDevice))
+        if let selectedPerson = selectedPerson {
+          title = "\(selectedPerson.name!)'s Devices"
+        } else {
+          title = "Devices"
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDevice))
+
+        }
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -31,9 +36,15 @@ public class DevicesTableViewController: UITableViewController {
         
     }
     
-    func reloadData() {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+    func reloadData(predicate: NSPredicate? = nil) {
         
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Device")
+        if let selectedPerson = selectedPerson {
+          fetchRequest.predicate =
+            NSPredicate(format: "owner == %@", selectedPerson)
+        } else {
+          fetchRequest.predicate = predicate
+        }
         do {
             if let results = try managedObjectContext.fetch(fetchRequest) as? [Device] {
                 devices = results
