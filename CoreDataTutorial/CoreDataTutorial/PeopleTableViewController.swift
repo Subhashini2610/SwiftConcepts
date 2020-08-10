@@ -47,7 +47,7 @@ public class PeopleTableViewController: UITableViewController {
         } catch  {
             fatalError("There was an error fetching list of devices")
         }
-        
+        tableView.reloadData()
     }
     
     @objc func addPerson() {
@@ -131,7 +131,11 @@ extension PeopleTableViewController {
         if editingStyle == .delete {
             let person = people[indexPath.row]
             managedObjectContext.delete(person)
-            
+            do {
+                try managedObjectContext.save()
+            } catch  {
+                print("Error in saving context")
+            }
             reloadData()
         }
     }

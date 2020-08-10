@@ -7,7 +7,7 @@
     </entity>
     <entity name="Person" representedClassName="Person" syncable="YES">
         <attribute name="name" attributeType="String"/>
-        <relationship name="devices" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Device" inverseName="owner" inverseEntity="Device"/>
+        <relationship name="devices" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Device" inverseName="owner" inverseEntity="Device"/>
     </entity>
     <elements>
         <element name="Device" positionX="-63" positionY="-18" width="128" height="88"/>
