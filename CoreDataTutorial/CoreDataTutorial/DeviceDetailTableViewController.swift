@@ -79,11 +79,6 @@ class DeviceDetailTableViewController: UITableViewController {
             }
             
             coreDataStack.managedObjectContext.refresh(device, mergeChanges: true)
-            if let birthdayBuddies = device.value(forKey: "purchasedOnSameDate") as? [Device] {
-                for birthdayBuddy in birthdayBuddies {
-                    print("Birthday buddy - \(birthdayBuddy.name!)")
-                }
-            }
         }
     }
     
@@ -108,10 +103,19 @@ class DeviceDetailTableViewController: UITableViewController {
         }
         
         do {
+            let startTime = CFAbsoluteTimeGetCurrent()
+
             try coreDataStack.saveMainContext()
+            
+            let endtime = CFAbsoluteTimeGetCurrent()
+            
+            let elapsedTime = (endtime - startTime) * 1000
+            print("Saving the context took \(elapsedTime) ms")
         } catch  {
             print("Error saving managed object context")
         }
+        
+        
         
     }
     

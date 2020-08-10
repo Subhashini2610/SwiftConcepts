@@ -21,6 +21,12 @@ class CoreDataStack: NSObject {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
     }()
     
+    private lazy var saveManagedObjectContext: NSManagedObjectContext = {
+        let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        moc.persistentStoreCoordinator = self.persistentStoreCoordinator
+        return moc
+    }()
+    
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
         
@@ -35,15 +41,31 @@ class CoreDataStack: NSObject {
     
     lazy var managedObjectContext: NSManagedObjectContext = {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        managedObjectContext.parent = self.saveManagedObjectContext
         return managedObjectContext
     }()
     
     func saveMainContext () throws {
         
-        if managedObjectContext.hasChanges {
-            try self.managedObjectContext.save()
+        guard managedObjectContext.hasChanges || saveManagedObjectContext.hasChanges else {
+            return
+        }
+        //to ensure it runs on main queue
+        managedObjectContext.performAndWait {
+            do {
+                try self.managedObjectContext.save()
+            } catch {
+                print("Error saving main managed object context \(error)")
+            }
         }
         
+        //can be run async; so only perform
+        saveManagedObjectContext.perform {
+            do {
+                try self.saveManagedObjectContext.save()
+            } catch {
+                print("Error saving private managed object context \(error)")
+            }
+        }
     }
 }
