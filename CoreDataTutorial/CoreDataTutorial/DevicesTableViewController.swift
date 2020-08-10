@@ -20,10 +20,10 @@ public class DevicesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         if let selectedPerson = selectedPerson {
-          title = "\(selectedPerson.name!)'s Devices"
+            title = "\(selectedPerson.name)'s Devices"
         } else {
           title = "Devices"
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDevice))
+            navigationItem.rightBarButtonItems = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addDevice)), UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector((selectFilter)))]
 
         }
     }
@@ -43,7 +43,9 @@ public class DevicesTableViewController: UITableViewController {
           fetchRequest.predicate =
             NSPredicate(format: "owner == %@", selectedPerson)
         } else {
-          fetchRequest.predicate = predicate
+            if let predicate = predicate {
+                fetchRequest.predicate = predicate
+            }
         }
         do {
             if let results = try managedObjectContext.fetch(fetchRequest) as? [Device] {
@@ -52,11 +54,34 @@ public class DevicesTableViewController: UITableViewController {
         } catch  {
             fatalError("There was an error fetching list of devices")
         }
-        
+        tableView.reloadData()
     }
     
     @objc func addDevice() {
         performSegue(withIdentifier: "deviceDetail", sender: self)
+    }
+    
+    @objc func selectFilter() {
+        let sheet = UIAlertController(title: "Filter Options", message: nil, preferredStyle: .actionSheet)
+        
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+            
+        }))
+        sheet.addAction(UIAlertAction(title: "Show All", style: .default, handler: { (action) in
+            self.reloadData()
+        }))
+        
+        sheet.addAction(UIAlertAction(title: "Only Owned Devices", style: .default, handler: { (action) -> Void in
+            self.reloadData(predicate: NSPredicate(format: "owner != nil"))
+        }))
+        sheet.addAction(UIAlertAction(title: "Only phones", style: .default, handler: { (action) in
+            self.reloadData(predicate: NSPredicate(format: "deviceType == iPhone"))
+        }))
+        sheet.addAction(UIAlertAction(title: "Only watches", style: .default, handler: { (action) in
+            self.reloadData(predicate: NSPredicate(format: "deviceType == Watch"))
+        }))
+        
+        present(sheet, animated: true, completion: nil)
     }
     
     @objc func setManagedObjectContext(context: NSManagedObjectContext) {

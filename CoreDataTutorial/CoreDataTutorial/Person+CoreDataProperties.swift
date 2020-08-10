@@ -17,7 +17,24 @@ extension Person {
         return NSFetchRequest<Person>(entityName: "Person")
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var devices: Device?
+    @NSManaged public var name: String
+    @NSManaged public var devices: NSSet
+
+}
+
+// MARK: Generated accessors for devices
+extension Person {
+
+    @objc(addDevicesObject:)
+    @NSManaged public func addToDevices(_ value: Device)
+
+    @objc(removeDevicesObject:)
+    @NSManaged public func removeFromDevices(_ value: Device)
+
+    @objc(addDevices:)
+    @NSManaged public func addToDevices(_ values: NSSet)
+
+    @objc(removeDevices:)
+    @NSManaged public func removeFromDevices(_ values: NSSet)
 
 }

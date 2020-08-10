@@ -17,8 +17,8 @@ extension Device {
         return NSFetchRequest<Device>(entityName: "Device")
     }
 
-    @NSManaged public var deviceType: String?
-    @NSManaged public var name: String?
+    @NSManaged public var deviceType: String
+    @NSManaged public var name: String
     @NSManaged public var owner: Person?
 
 }

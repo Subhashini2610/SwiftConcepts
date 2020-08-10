@@ -27,7 +27,7 @@ class DeviceDetailTableViewController: UITableViewController {
         txtFieldDeviceType.text = device?.deviceType
         
         if let owner = device?.owner {
-            lblDeviceOwner.text = "Device owner: \(owner.name!)"
+            lblDeviceOwner.text = "Device owner: \(owner.name)"
         } else {
             lblDeviceOwner.text = "Set device owner"
         }

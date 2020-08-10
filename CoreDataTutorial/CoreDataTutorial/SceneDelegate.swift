@@ -93,11 +93,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             device.deviceType = i % 3 == 0 ? "Watch" : "iPhone"
         }
         
-        let bob = NSManagedObject(entity: personEntity, insertInto: context)
-        bob.setValue("Bob", forKey: "name")
+        let bob = Person(entity: personEntity, insertInto: context)
+        bob.name = "Bob"
         
-        let jane = NSManagedObject(entity: personEntity, insertInto: context)
-        jane.setValue("Jane", forKey: "name")
+        let jane = Person(entity: personEntity, insertInto: context)
+        jane.name = "Jane"
         
         appDelegate.saveContext()
     }
