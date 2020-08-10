@@ -2,7 +2,7 @@
 //  Device+CoreDataProperties.swift
 //  CoreDataTutorial
 //
-//  Created by Narayanaswamy, Subhashini (623) on 09/08/20.
+//  Created by Narayanaswamy, Subhashini (623) on 10/08/20.
 //  Copyright © 2020 Narayanaswamy, Subhashini (623). All rights reserved.
 //
 //
@@ -17,7 +17,8 @@ extension Device {
         return NSFetchRequest<Device>(entityName: "Device")
     }
 
-    @NSManaged public var deviceType: String
-    @NSManaged public var name: String
+    @NSManaged public var deviceType: String?
+    @NSManaged public var name: String?
+    @NSManaged public var owner: Person?
 
 }
