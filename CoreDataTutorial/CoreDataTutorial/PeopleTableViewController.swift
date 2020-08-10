@@ -9,10 +9,17 @@
 import UIKit
 import CoreData
 
+protocol PersonPickerDelegate: class {
+    func didSelectPerson(person: Person)
+}
+
 public class PeopleTableViewController: UITableViewController {
     
     var managedObjectContext: NSManagedObjectContext!
-    var people = [NSManagedObject]()
+    var people = [Person]()
+    
+    weak var pickerDelegate: PersonPickerDelegate?
+    var selectedPerson: Person?
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +38,10 @@ public class PeopleTableViewController: UITableViewController {
     
     func reloadData() {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Person")
-        
+//        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+//        fetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            if let results = try managedObjectContext.fetch(fetchRequest) as? [NSManagedObject] {
+            if let results = try managedObjectContext.fetch(fetchRequest) as? [Person] {
                 people = results
             }
         } catch  {
@@ -61,8 +69,8 @@ public class PeopleTableViewController: UITableViewController {
     
     func addNewPerson(name: String) {
         if let entity = NSEntityDescription.entity(forEntityName: "Person", in: managedObjectContext) {
-            let newPerson = NSManagedObject(entity: entity, insertInto: managedObjectContext)
-            newPerson.setValue(name, forKey: "name")
+            let newPerson = Person(entity: entity, insertInto: managedObjectContext)
+            newPerson.name = name
             
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                 appDelegate.saveContext()
@@ -89,7 +97,29 @@ extension PeopleTableViewController {
         if let name = person.value(forKey: "name") as? String {
             cell.textLabel?.text = name
         }
+        if let selectedPerson = selectedPerson, selectedPerson == person {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
         
         return cell
+    }
+    
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let pickerDelegate = pickerDelegate {
+            let person = people[indexPath.row]
+            selectedPerson = person
+            pickerDelegate.didSelectPerson(person: selectedPerson!)
+            tableView.reloadData()
+        } else {
+            if let devicesTableViewController = storyboard?.instantiateViewController(identifier: "Devices") as? DevicesTableViewController {
+                let person = people[indexPath.row]
+                devicesTableViewController.managedObjectContext = managedObjectContext
+                devicesTableViewController.selectedPerson = person
+                navigationController?.pushViewController(devicesTableViewController, animated: true)
+            }
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

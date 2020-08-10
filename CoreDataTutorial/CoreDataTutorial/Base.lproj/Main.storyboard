@@ -157,7 +157,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="vSH-vh-6As"/>
                     <connections>
-                        <outlet property="lblDeviceOwner" destination="DkD-fp-4az" id="D5B-Gv-Vdh"/>
+                        <outlet property="lblDeviceOwner" destination="DkD-fp-4az" id="9RP-bo-X1s"/>
                         <outlet property="txtFieldDeviceName" destination="5ba-Jr-i6E" id="Lbd-vY-f9v"/>
                         <outlet property="txtFieldDeviceType" destination="wXX-rS-lYP" id="njC-rW-ppR"/>
                     </connections>
@@ -187,7 +187,7 @@
         <!--Root View Controller-->
         <scene sceneID="wpR-pa-2tc">
             <objects>
-                <tableViewController id="ekt-5K-Dtc" customClass="PeopleTableViewController" customModule="CoreDataTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="People" id="ekt-5K-Dtc" customClass="PeopleTableViewController" customModule="CoreDataTutorial" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="LuS-sS-UtK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

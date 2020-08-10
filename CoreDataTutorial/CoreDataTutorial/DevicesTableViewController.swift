@@ -14,6 +14,8 @@ public class DevicesTableViewController: UITableViewController {
     var managedObjectContext: NSManagedObjectContext!
     var devices = [Device]()
     
+    var selectedPerson: Person?
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         
