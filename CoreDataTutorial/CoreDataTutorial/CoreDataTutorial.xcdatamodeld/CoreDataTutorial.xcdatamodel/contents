@@ -6,13 +6,16 @@
         <attribute name="name" attributeType="String"/>
         <attribute name="purchaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="devices" inverseEntity="Person"/>
+        <fetchedProperty name="purchasedOnSameDate" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Device" predicateString="purchaseDate == $FETCH_SOURCE.purchaseDate"/>
+        </fetchedProperty>
     </entity>
     <entity name="Person" representedClassName="Person" syncable="YES">
-        <attribute name="name" attributeType="String"/>
+        <attribute name="name" attributeType="String" minValueString="2"/>
         <relationship name="devices" toMany="YES" deletionRule="Cascade" destinationEntity="Device" inverseName="owner" inverseEntity="Device"/>
     </entity>
     <elements>
-        <element name="Device" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Device" positionX="-63" positionY="-18" width="128" height="146"/>
         <element name="Person" positionX="-54" positionY="9" width="128" height="73"/>
     </elements>
 </model>

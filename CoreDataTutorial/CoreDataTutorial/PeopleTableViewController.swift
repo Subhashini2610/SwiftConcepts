@@ -54,7 +54,7 @@ public class PeopleTableViewController: UITableViewController {
             
         }
         let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
-            if let name = alert.textFields?.first?.text {
+            if let name = alert.textFields?.first?.text, !name.isEmpty {
                 self.addNewPerson(name: name)
             }
         }
@@ -69,12 +69,16 @@ public class PeopleTableViewController: UITableViewController {
         if let entity = NSEntityDescription.entity(forEntityName: "Person", in: coreDataStack.managedObjectContext) {
             let newPerson = Person(entity: entity, insertInto: coreDataStack.managedObjectContext)
             newPerson.name = name
-            
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                appDelegate.coreDataStack.saveMainContext()
-                self.reloadData()
-                tableView.reloadData()
+            do {
+                try coreDataStack.saveMainContext()
+            } catch {
+                coreDataStack.managedObjectContext.delete(newPerson)
+                let alert = UIAlertController(title: "Error", message: "A person's name must be longer than a single character.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                present(alert, animated: true, completion: nil)
             }
+            self.reloadData()
+            tableView.reloadData()
         }
     }
     
@@ -129,11 +133,8 @@ extension PeopleTableViewController {
         if editingStyle == .delete {
             let person = people[indexPath.row]
             coreDataStack.managedObjectContext.delete(person)
-            do {
-                try coreDataStack.saveMainContext()
-            } catch  {
-                print("Error in saving context")
-            }
+            try? coreDataStack.saveMainContext()
+            
             reloadData()
         }
     }
