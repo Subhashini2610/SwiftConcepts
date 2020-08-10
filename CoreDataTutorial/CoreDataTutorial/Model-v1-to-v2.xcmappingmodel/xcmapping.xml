@@ -69,14 +69,14 @@
         <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z104"></relationship>
     </object>
     <object type="XDDEVENTITYMAPPING" id="z106">
-        <attribute name="migrationpolicyclassname" type="string">myDevices.DeviceTypeMigrationV1ToV2</attribute>
+        <attribute name="migrationpolicyclassname" type="string">CoreDataTutorial.DeviceTypeMigrationV1ToV2</attribute>
         <attribute name="sourcename" type="string">Device</attribute>
         <attribute name="mappingtypename" type="string">Undefined</attribute>
         <attribute name="mappingnumber" type="int16">2</attribute>
         <attribute name="destinationname" type="string">Device</attribute>
         <attribute name="autogenerateexpression" type="bool">1</attribute>
         <relationship name="mappingmodel" type="1/1" destination="XDDEVMAPPINGMODEL" idrefs="z115"></relationship>
-        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z112 z110 z103 z114"></relationship>
+        <relationship name="attributemappings" type="0/0" destination="XDDEVATTRIBUTEMAPPING" idrefs="z114 z110 z112 z103"></relationship>
         <relationship name="relationshipmappings" type="0/0" destination="XDDEVRELATIONSHIPMAPPING" idrefs="z107 z111"></relationship>
     </object>
     <object type="XDDEVRELATIONSHIPMAPPING" id="z107">
