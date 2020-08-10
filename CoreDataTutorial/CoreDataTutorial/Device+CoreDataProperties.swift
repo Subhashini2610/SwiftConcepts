@@ -19,6 +19,8 @@ extension Device {
 
     @NSManaged public var deviceType: String
     @NSManaged public var name: String
+    @NSManaged public var deviceID: String?
+    @NSManaged public var purchaseDate: Date?
     @NSManaged public var owner: Person?
 
 }

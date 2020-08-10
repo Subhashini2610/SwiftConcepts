@@ -19,7 +19,9 @@ class DeviceDetailTableViewController: UITableViewController {
     @IBOutlet weak var txtFieldDeviceName: UITextField!
     
     @IBOutlet weak var txtFieldDeviceType: UITextField!
+    @IBOutlet weak var txtFieldDeviceID: UITextField!
     
+    @IBOutlet weak var txtFieldPurchaseDate: UITextField!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
