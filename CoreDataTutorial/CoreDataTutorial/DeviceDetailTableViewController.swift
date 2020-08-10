@@ -32,6 +32,10 @@ class DeviceDetailTableViewController: UITableViewController {
         df.dateStyle = .medium
         return df
     }()
+    private var deviceTypes = [DeviceType]()
+    private let deviceTypePicker = UIPickerView()
+    private var selectedDeviceType: DeviceType?
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -39,13 +43,28 @@ class DeviceDetailTableViewController: UITableViewController {
         datePicker.datePickerMode = .date
         txtFieldPurchaseDate.inputView = datePicker
         
-        
+        loadDeviceTypes()
+        deviceTypePicker.delegate = self
+        deviceTypePicker.dataSource = self
+        txtFieldDeviceType.inputView = deviceTypePicker
         if let device = device {
             
             txtFieldDeviceName.text = device.name
             txtFieldDeviceType.text = device.deviceType?.name
             txtFieldDeviceID.text = device.deviceID
             imageView.image = device.image
+            
+            if let deviceType = device.deviceType {
+              selectedDeviceType = deviceType
+
+              for index in 0...deviceTypes.count - 1 {
+                  let oneDeviceType = deviceTypes[index]
+                if deviceType == oneDeviceType {
+                  deviceTypePicker.selectRow(index, inComponent: 0, animated: false)
+                  break
+                }
+              }
+            }
 
             if let owner = device.owner {
                 lblDeviceOwner.text = "Device owner: \(owner.name!)"
@@ -70,9 +89,9 @@ class DeviceDetailTableViewController: UITableViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         
-        if let device = device, let name = txtFieldDeviceName.text, let deviceType = device.deviceType {
+        if let device = device, let name = txtFieldDeviceName.text {
             device.name = name
-            device.deviceType = deviceType
+            device.deviceType = selectedDeviceType
             device.deviceID = txtFieldDeviceID.text
             device.purchaseDate = selectedDate
             device.image = imageView.image
@@ -95,6 +114,23 @@ class DeviceDetailTableViewController: UITableViewController {
         }
         
     }
+    
+    func loadDeviceTypes() {
+      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "DeviceType")
+      fetchRequest.sortDescriptors = [
+        NSSortDescriptor(key: "name", ascending: true)
+      ]
+
+      do {
+          if let results = try coreDataStack.managedObjectContext.fetch(fetchRequest) as? [DeviceType] {
+          deviceTypes = results
+        }
+      } catch {
+        fatalError("There was an error fetching the list of device types!")
+      }
+
+    }
+    
     @objc func datePickerValueChanged(datePicker: UIDatePicker) {
       txtFieldPurchaseDate.text = dateFormatter.string(from: datePicker.date)
       selectedDate = dateFormatter.date(from: txtFieldPurchaseDate.text!)
@@ -167,4 +203,27 @@ extension DeviceDetailTableViewController: UIImagePickerControllerDelegate, UINa
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     dismiss(animated: true, completion: nil)
   }
+}
+
+extension DeviceDetailTableViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return deviceTypes[row].name
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedDeviceType = deviceTypes[row]
+        txtFieldDeviceType.text = selectedDeviceType?.name
+    }
+}
+
+extension DeviceDetailTableViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return deviceTypes.count
+    }
+
 }
