@@ -92,7 +92,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         for i in 1...10 {
             let device = Device(entity: entity, insertInto: appDelegate.coreDataStack.managedObjectContext)
             device.name = "Some device #\(i)"
-            device.deviceType = i % 3 == 0 ? "Watch" : "iPhone"
+            let deviceType = DeviceType(entity: NSEntityDescription.entity(forEntityName: "DeviceType", in: appDelegate.coreDataStack.managedObjectContext)!, insertInto: appDelegate.coreDataStack.managedObjectContext)
+            device.deviceType = deviceType
+            device.deviceType!.name = i % 3 == 0 ? "Watch" : "iPhone"
         }
         
         let bob = Person(entity: personEntity, insertInto: context)

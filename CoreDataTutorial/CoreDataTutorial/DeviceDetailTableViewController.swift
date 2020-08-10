@@ -43,7 +43,7 @@ class DeviceDetailTableViewController: UITableViewController {
         if let device = device {
             
             txtFieldDeviceName.text = device.name
-            txtFieldDeviceType.text = device.deviceType
+            txtFieldDeviceType.text = device.deviceType?.name
             txtFieldDeviceID.text = device.deviceID
             imageView.image = device.image
 
@@ -79,7 +79,8 @@ class DeviceDetailTableViewController: UITableViewController {
         } else if device == nil {
             if let name = txtFieldDeviceName.text, let deviceType = txtFieldDeviceType.text, let deviceID = txtFieldDeviceID.text, let entity = NSEntityDescription.entity(forEntityName: "Device", in: coreDataStack.managedObjectContext), !name.isEmpty && !deviceType.isEmpty {
                 device = Device(entity: entity, insertInto: coreDataStack.managedObjectContext)
-                device?.deviceType = deviceType
+                device?.deviceType = DeviceType(entity: NSEntityDescription.entity(forEntityName: "DeviceType", in: coreDataStack.managedObjectContext)!, insertInto: coreDataStack.managedObjectContext)
+                device?.deviceType?.name = deviceType
                 device?.name = name
                 device?.deviceID = deviceID
                 device?.purchaseDate = selectedDate

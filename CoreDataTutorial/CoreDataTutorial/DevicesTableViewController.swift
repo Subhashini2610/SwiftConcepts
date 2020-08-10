@@ -101,7 +101,7 @@ extension DevicesTableViewController {
         
         let device = devices[indexPath.row]
         cell.textLabel?.text = device.name
-        cell.detailTextLabel?.text = device.deviceType
+        cell.detailTextLabel?.text = device.deviceType?.name
         
         return cell
     }

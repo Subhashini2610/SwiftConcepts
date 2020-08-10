@@ -18,7 +18,7 @@ extension Device {
     }
 
     @NSManaged public var deviceID: String?
-    @NSManaged public var deviceType: String?
+    @NSManaged public var deviceType: DeviceType?
     @NSManaged public var name: String?
     @NSManaged public var purchaseDate: Date?
     @NSManaged public var image: UIImage?
