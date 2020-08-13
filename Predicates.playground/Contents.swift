@@ -40,7 +40,7 @@ let ageIs33Predicate = NSPredicate(format: "%K = %@", "age", "33")
 people.filtered(using: ageIs33Predicate)
 
 //$VARIABLE_NAME is a value that can be substituted with NSPredicate -predicateWithSubstitutionVariables
-let namesBeginning = NSPredicate(format: "(firstName BEGINSWITH[cd] $letter) OR (lastName BEGINSWITH[cd] $letter)")
+let namesBeginning = NSPredicate(format: "(firstName BEGINSWITH[cd] $letter) OR (lastName BEGINSWITH[cd] $letter)")//c-case insensitive, d-diacritic insensitive
 people.filtered(using: namesBeginning.withSubstitutionVariables(["letter": "A"]))
 
 //COMPARISONS: =, ==, <, <=, !=, <>, >, >=, BETWEEN
