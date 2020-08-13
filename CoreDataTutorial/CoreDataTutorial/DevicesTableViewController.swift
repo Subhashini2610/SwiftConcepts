@@ -74,10 +74,10 @@ public class DevicesTableViewController: UITableViewController {
             self.reloadData(predicate: NSPredicate(format: "owner != nil"))
         }))
         sheet.addAction(UIAlertAction(title: "Only phones", style: .default, handler: { (action) in
-            self.reloadData(predicate: NSPredicate(format: "deviceType == %@", "iPhone"))
+            self.reloadData(predicate: NSPredicate(format: "deviceType.name == %@", "iPhone"))
         }))
         sheet.addAction(UIAlertAction(title: "Only watches", style: .default, handler: { (action) in
-            self.reloadData(predicate: NSPredicate(format: "deviceType == %@", "Watch"))
+            self.reloadData(predicate: NSPredicate(format: "deviceType.name == %@", "Watch"))
         }))
         
         present(sheet, animated: true, completion: nil)
